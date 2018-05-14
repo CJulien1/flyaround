@@ -12,34 +12,40 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Flight
 {
+    /*
+    * Adding personal methods / variables
+    */
+
     public function __toString()
     {
+        // Return the planeModel object with "[DEPARTURES] - [ARRIVAL]" format, when __toString is called.
         return $this->departure . $this->arrival;
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Site")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Site", inversedBy="departures")
      * @ORM\JoinColumn(nullable=false)
      */
     private $departure;
-
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Site")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Site", inversedBy="arrivals")
      * @ORM\JoinColumn(nullable=false)
      */
     private $arrival;
-
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PlaneModel")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PlaneModel", inversedBy="planes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $plane;
-
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="pilots")
      * @ORM\JoinColumn(nullable=false)
      */
     private $pilot;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reservation", mappedBy="flight")
+     */
+    private $flights;
 
     /**
      * @var int
@@ -341,5 +347,46 @@ class Flight
     public function getPilot()
     {
         return $this->pilot;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->flights = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add flight
+     *
+     * @param \AppBundle\Entity\Reservation $flight
+     *
+     * @return Flight
+     */
+    public function addFlight(\AppBundle\Entity\Reservation $flight)
+    {
+        $this->flights[] = $flight;
+
+        return $this;
+    }
+
+    /**
+     * Remove flight
+     *
+     * @param \AppBundle\Entity\Reservation $flight
+     */
+    public function removeFlight(\AppBundle\Entity\Reservation $flight)
+    {
+        $this->flights->removeElement($flight);
+    }
+
+    /**
+     * Get flights
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFlights()
+    {
+        return $this->flights;
     }
 }

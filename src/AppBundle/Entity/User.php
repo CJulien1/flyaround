@@ -12,25 +12,28 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User
 {
+    /*
+    * Addding personal methods / variables
+    */
+
     public function __toString()
     {
+        // Return the User object with "[FIRSTNAME] - [LASTNAME]" format when __toString is called
         return $this->firstName . " " . $this->lastName;
     }
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review", mappedBy="reviewAuthor")
      */
-    private $reviewAuthor;
-
+    private $reviewAuthors;
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Flight", mappedBy="pilot")
      */
-    private $pilot;
-
+    private $pilots;
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reservation", mappedBy="passenger")
      */
-    private $passenger;
+    private $passengers;
 
     /**
      * @var int
@@ -376,5 +379,35 @@ class User
     public function getPassenger()
     {
         return $this->passenger;
+    }
+
+    /**
+     * Get reviewAuthors
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReviewAuthors()
+    {
+        return $this->reviewAuthors;
+    }
+
+    /**
+     * Get pilots
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPilots()
+    {
+        return $this->pilots;
+    }
+
+    /**
+     * Get passengers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPassengers()
+    {
+        return $this->passengers;
     }
 }

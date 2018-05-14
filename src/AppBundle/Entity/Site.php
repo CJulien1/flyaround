@@ -12,15 +12,23 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Site
 {
+    /*
+    * Adding personal methods / variables
+    */
+
+    public function __toString()
+    {
+        //Return the Site object with "[ICAO] - [NAME] [CITY]" format, when _toString is called.
+        return $this->icao . " - " . $this->name . " " . $this->city;
+    }
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Flight", mappedBy="departure")
      */
     private $departures;
-
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Flight", mappedBy="arrival")
      */
-    private $arrival;
+    private $arrivals;
 
     /**
      * @var int
@@ -271,5 +279,15 @@ class Site
     public function getArrival()
     {
         return $this->arrival;
+    }
+
+    /**
+     * Get arrivals
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArrivals()
+    {
+        return $this->arrivals;
     }
 }

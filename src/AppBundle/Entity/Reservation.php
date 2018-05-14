@@ -12,19 +12,22 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Reservation
 {
+    /*
+    * Adding personnal methods / variables
+    */
+
     public function __toString()
     {
+        // Return the Reservation object with "[id]" format when __toString is called
         return strval($this->id);
     }
-
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="passengers")
      * @ORM\JoinColumn(nullable=false)
      */
     private $passenger;
-
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Flight")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Flight", inversedBy="flights")
      * @ORM\JoinColumn(nullable=false)
      */
     private $flight;
