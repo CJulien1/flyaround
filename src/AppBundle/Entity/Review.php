@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Reservation
+ * Review
  *
- * @ORM\Table(name="reservation")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ReservationRepository")
+ * @ORM\Table(name="review")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ReviewRepository")
  */
-class Reservation
+class Review
 {
     public function __toString()
     {
@@ -21,13 +21,13 @@ class Reservation
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $passenger;
+    private $userRated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Flight")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $flight;
+    private $reviewAuthor;
 
     /**
      * @var int
@@ -39,11 +39,11 @@ class Reservation
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="nbReservedSeats", type="smallint")
+     * @ORM\Column(name="text", type="text")
      */
-    private $nbReservedSeats;
+    private $text;
 
     /**
      * @var \DateTime
@@ -53,11 +53,11 @@ class Reservation
     private $publicationDate;
 
     /**
-     * @var bool
+     * @var int
      *
-     * @ORM\Column(name="wasDone", type="boolean")
+     * @ORM\Column(name="note", type="smallint")
      */
-    private $wasDone;
+    private $note;
 
 
     /**
@@ -71,27 +71,27 @@ class Reservation
     }
 
     /**
-     * Set nbReservedSeats
+     * Set text
      *
-     * @param integer $nbReservedSeats
+     * @param string $text
      *
-     * @return Reservation
+     * @return Review
      */
-    public function setNbReservedSeats($nbReservedSeats)
+    public function setText($text)
     {
-        $this->nbReservedSeats = $nbReservedSeats;
+        $this->text = $text;
 
         return $this;
     }
 
     /**
-     * Get nbReservedSeats
+     * Get text
      *
-     * @return int
+     * @return string
      */
-    public function getNbReservedSeats()
+    public function getText()
     {
-        return $this->nbReservedSeats;
+        return $this->text;
     }
 
     /**
@@ -99,7 +99,7 @@ class Reservation
      *
      * @param \DateTime $publicationDate
      *
-     * @return Reservation
+     * @return Review
      */
     public function setPublicationDate($publicationDate)
     {
@@ -119,74 +119,74 @@ class Reservation
     }
 
     /**
-     * Set wasDone
+     * Set note
      *
-     * @param boolean $wasDone
+     * @param integer $note
      *
-     * @return Reservation
+     * @return Review
      */
-    public function setWasDone($wasDone)
+    public function setNote($note)
     {
-        $this->wasDone = $wasDone;
+        $this->note = $note;
 
         return $this;
     }
 
     /**
-     * Get wasDone
+     * Get note
      *
-     * @return bool
+     * @return int
      */
-    public function getWasDone()
+    public function getNote()
     {
-        return $this->wasDone;
+        return $this->note;
     }
 
     /**
-     * Set passenger
+     * Set userRated
      *
-     * @param \AppBundle\Entity\User $passenger
+     * @param \AppBundle\Entity\User $userRated
      *
-     * @return Reservation
+     * @return Review
      */
-    public function setPassenger(\AppBundle\Entity\User $passenger)
+    public function setUserRated(\AppBundle\Entity\User $userRated)
     {
-        $this->passenger = $passenger;
+        $this->userRated = $userRated;
 
         return $this;
     }
 
     /**
-     * Get passenger
+     * Get userRated
      *
      * @return \AppBundle\Entity\User
      */
-    public function getPassenger()
+    public function getUserRated()
     {
-        return $this->passenger;
+        return $this->userRated;
     }
 
     /**
-     * Set flight
+     * Set reviewAuthor
      *
-     * @param \AppBundle\Entity\Flight $flight
+     * @param \AppBundle\Entity\User $reviewAuthor
      *
-     * @return Reservation
+     * @return Review
      */
-    public function setFlight(\AppBundle\Entity\Flight $flight)
+    public function setReviewAuthor(\AppBundle\Entity\User $reviewAuthor)
     {
-        $this->flight = $flight;
+        $this->reviewAuthor = $reviewAuthor;
 
         return $this;
     }
 
     /**
-     * Get flight
+     * Get reviewAuthor
      *
-     * @return \AppBundle\Entity\Flight
+     * @return \AppBundle\Entity\User
      */
-    public function getFlight()
+    public function getReviewAuthor()
     {
-        return $this->flight;
+        return $this->reviewAuthor;
     }
 }
