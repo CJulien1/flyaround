@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use AppBundle\Entity\Review;
 use AppBundle\Form\ReviewType;
+
 /**
  * Review controller.
  *
@@ -88,7 +88,7 @@ class ReviewController extends Controller
      * Edit review entities.
      *
      * @Route("/{id}/edit", name="review_edit")
-     * @Method("GET")
+     * @Method({"GET", "post"})
      * @return Response A Response instance
      */
     public function editAction(Request $request, Review $review)

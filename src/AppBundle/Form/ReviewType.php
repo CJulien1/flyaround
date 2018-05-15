@@ -29,7 +29,6 @@ class ReviewType extends AbstractType
     /**
      * {@inheritdoc} getName() is now deprecated
      */
-
     public function getBlockPrefix()
     {
         return 'appbundle_review';
