@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PlaneModel
  *
- * @ORM\Table(name="planeModel")
+ * @ORM\Table(name="plane_model")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaneModelRepository")
  */
 class PlaneModel
