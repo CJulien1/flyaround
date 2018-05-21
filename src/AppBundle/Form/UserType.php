@@ -20,7 +20,8 @@ class UserType extends AbstractType
             ->add('birthDate')
             ->add('creationDate')
             ->add('note')
-            ->add('isACertifiedPilot');
+            ->add('isACertifiedPilot')
+        ;
     }
 
     /**

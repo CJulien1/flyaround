@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ReviewType extends AbstractType
+class  ContactType extends AbstractType
 {
     /**
      * {@inheritdoc} Including all fields from Review entity.
@@ -21,17 +21,10 @@ class ReviewType extends AbstractType
     {
         $builder->add('text',TextareaType::class, array(
             'attr' => array('maxlength' => 250, 'label' => 'Description')))
-            ->add('publicationDate', DateType::class, array('data' => new \DateTime('now')))
-            ->add('note', IntegerType::class, array('attr' => array('min' => 0, 'max' => 5, 'label' => 'Note')))
-            ->add('agreeTerms', CheckboxType::class, array('mapped' => false))
-            ->add('userRated', EntityType::class,
-                array('class' =>'AppBundle\Entity\User',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')->orderBy('u.lastName', 'ASC');
-                    },
-                    'choice_label' => 'lastName'))
-            ->add('reviewAuthor')
-        ;
+            ->add('firstName')
+            ->add('lastName')
+            ->add('email')
+            ;
     }
 
     /**

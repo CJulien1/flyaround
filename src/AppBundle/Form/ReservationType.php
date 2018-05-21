@@ -18,7 +18,8 @@ class ReservationType extends AbstractType
             ->add('publicationDate')
             ->add('wasDone')
             ->add('passenger')
-            ->add('flight');
+            ->add('flight')
+        ;
     }/**
      * {@inheritdoc}
      */

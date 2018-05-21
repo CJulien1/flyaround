@@ -11,11 +11,13 @@ class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('firstName')
-        ->add('lastName')
-        ->add('phoneNumber')
-        ->add('birthDate', BirthdayType::class)
-        ->add('isACertifiedPilot');
+        $builder
+            ->add('firstName')
+            ->add('lastName')
+            ->add('phoneNumber')
+            ->add('birthDate', BirthdayType::class)
+            ->add('isACertifiedPilot')
+        ;
     }
 
     public function getParent()

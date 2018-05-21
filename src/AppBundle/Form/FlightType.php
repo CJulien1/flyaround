@@ -23,7 +23,8 @@ class FlightType extends AbstractType
             ->add('departure')
             ->add('arrival')
             ->add('plane')
-            ->add('pilot');
+            ->add('pilot')
+        ;
     }/**
      * {@inheritdoc}
      */

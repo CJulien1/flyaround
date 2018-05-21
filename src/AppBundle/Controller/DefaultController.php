@@ -18,4 +18,19 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
+
+    /**
+     * @Route("/contact", name="contact")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function newAction(Request $request)
+    {
+        $form = $this->createForm('AppBundle\Form\ContactType');
+        $form->handleRequest($request);
+
+        return $this->render('contact/new.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
 }

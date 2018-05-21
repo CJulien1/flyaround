@@ -18,3 +18,4 @@
 .directory
 /web/bundles/
 *.php~
+/node_modules/
