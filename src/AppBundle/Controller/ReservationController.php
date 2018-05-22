@@ -3,10 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Reservation;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Reservation controller.
@@ -37,6 +38,10 @@ class ReservationController extends Controller
      *
      * @Route("/new", name="reservation_new")
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
@@ -63,6 +68,10 @@ class ReservationController extends Controller
      *
      * @Route("/{id}", name="reservation_show")
      * @Method("GET")
+     *
+     * @param Reservation $reservation
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Reservation $reservation)
     {
@@ -79,6 +88,11 @@ class ReservationController extends Controller
      *
      * @Route("/{id}/edit", name="reservation_edit")
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @param Reservation $reservation
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, Reservation $reservation)
     {
@@ -104,6 +118,11 @@ class ReservationController extends Controller
      *
      * @Route("/{id}", name="reservation_delete")
      * @Method("DELETE")
+     *
+     * @param Request $request
+     * @param Reservation $reservation
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, Reservation $reservation)
     {
@@ -124,7 +143,7 @@ class ReservationController extends Controller
      *
      * @param Reservation $reservation The reservation entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface The form
      */
     private function createDeleteForm(Reservation $reservation)
     {

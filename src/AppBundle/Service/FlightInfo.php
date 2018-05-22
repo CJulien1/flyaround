@@ -7,6 +7,7 @@
  */
 
 namespace AppBundle\Service;
+
 class FlightInfo
 {
     /**
@@ -57,5 +58,18 @@ class FlightInfo
         }
 
         return $d;
+    }
+
+    /**
+     *
+     * @param float $distance Distance
+     * @param int $speed Speed
+     *
+     * @return
+     */
+    public function getTime($distance, $speed)
+    {
+        $t = $distance / $speed;
+        return sprintf('%02d:%02d', (int) $t, fmod($t, 1) * 60);
     }
 }

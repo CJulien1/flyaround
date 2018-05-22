@@ -4,10 +4,12 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Flight;
 use AppBundle\Service\FlightInfo;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Flight controller.
@@ -38,6 +40,10 @@ class FlightController extends Controller
      *
      * @Route("/new", name="flight_new")
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
@@ -66,7 +72,6 @@ class FlightController extends Controller
      * @Method("GET")
      *
      * @param Flight $flight
-     * @param PlaneModel $planeModel
      * @param FlightInfo $flightInfo
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -82,8 +87,14 @@ class FlightController extends Controller
             $flight->getArrival()->getLongitude()
         );
 
+        $time = $flightInfo->getTime(
+            $distance,
+            $flight->getPlane()->getCruiseSpeed()
+        );
+
         return $this->render('flight/show.html.twig', array(
             'distance' => $distance,
+            'time' => $time,
             'flight' => $flight,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -94,6 +105,11 @@ class FlightController extends Controller
      *
      * @Route("/{id}/edit", name="flight_edit")
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @param Flight $flight
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, Flight $flight)
     {
@@ -119,6 +135,11 @@ class FlightController extends Controller
      *
      * @Route("/{id}", name="flight_delete")
      * @Method("DELETE")
+     *
+     * @param Request $request
+     * @param Flight $flight
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, Flight $flight)
     {
@@ -139,7 +160,7 @@ class FlightController extends Controller
      *
      * @param Flight $flight The flight entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface The form
      */
     private function createDeleteForm(Flight $flight)
     {

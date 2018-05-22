@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 use AppBundle\Entity\Review;
 use AppBundle\Form\ReviewType;
 
@@ -81,6 +82,9 @@ class ReviewController extends Controller
      *
      * @Route("/{id}", name="review_show")
      * @Method("GET")
+     *
+     * @param Review $review
+     *
      * @return Response A Response instance
      */
     public function showAction(Review $review)
@@ -98,6 +102,10 @@ class ReviewController extends Controller
      *
      * @Route("/{id}/edit", name="review_edit")
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @param Review $review
+     *
      * @return Response A Response instance
      */
     public function editAction(Request $request, Review $review)
@@ -124,6 +132,10 @@ class ReviewController extends Controller
      *
      * @Route("/{id}", name="review_delete")
      * @Method("DELETE")
+     *
+     * @param Request $request
+     * @param Review $review
+     *
      * @return Response A Response instance
      */
     public function deleteAction(Request $request, Review $review)
@@ -145,7 +157,7 @@ class ReviewController extends Controller
      *
      * @param Review $review The review entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface The form
      */
     private function createDeleteForm(Review $review)
     {

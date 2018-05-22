@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Site;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -36,6 +37,10 @@ class SiteController extends Controller
      *
      * @Route("/{id}", name="site_show")
      * @Method("GET")
+     *
+     * @param Site $site
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Site $site)
     {
