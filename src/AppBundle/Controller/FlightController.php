@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Flight;
+use AppBundle\Service\FlightInfo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Flight controller.
@@ -62,12 +64,26 @@ class FlightController extends Controller
      *
      * @Route("/{id}", name="flight_show")
      * @Method("GET")
+     *
+     * @param Flight $flight
+     * @param PlaneModel $planeModel
+     * @param FlightInfo $flightInfo
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(Flight $flight)
+    public function showAction(Flight $flight, FlightInfo $flightInfo)
     {
         $deleteForm = $this->createDeleteForm($flight);
 
+        $distance = $flightInfo->getDistance(
+            $flight->getDeparture()->getLatitude(),
+            $flight->getDeparture()->getLongitude(),
+            $flight->getArrival()->getLatitude(),
+            $flight->getArrival()->getLongitude()
+        );
+
         return $this->render('flight/show.html.twig', array(
+            'distance' => $distance,
             'flight' => $flight,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -131,6 +147,6 @@ class FlightController extends Controller
             ->setAction($this->generateUrl('flight_delete', array('id' => $flight->getId())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
 }

@@ -2,14 +2,11 @@
 
 namespace AppBundle\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Review;
 use AppBundle\Form\ReviewType;
 
@@ -18,28 +15,35 @@ use AppBundle\Form\ReviewType;
  *
  * @Route("review")
  */
+
 class ReviewController extends Controller
 {
     /**
-     * Lists all review entities.
+     * List all reviews.
      *
      * @Route("/", name="review_index")
      * @Method("GET")
      * @return Response A Response instance
      */
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $reviews = $em->getRepository('AppBundle:Review')->findAll();
 
-        return $this->render('review/index.html.twig', array(
-            'reviews' => $reviews,
-        ));
+        return $this->render(
+            'review/index.html.twig',
+            array(
+                'reviews' => $reviews,
+            )
+        );
     }
 
     /**
-     * New review entities.
+     * Creates a new review entity.
+     *
+     *@param Request $request New posted info
      *
      * @Route("/new", name="review_new")
      * @Method({"GET", "POST"})
@@ -51,6 +55,8 @@ class ReviewController extends Controller
         $review = new Review();
         $form = $this->createForm(ReviewType::class, $review);
 
+        // building the form
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -58,17 +64,20 @@ class ReviewController extends Controller
             $em->persist($review);
             $em->flush();
 
+            // You can use too :
             return $this->redirect($this->generateUrl('review_show', array('id' => $review->getId())));
         }
 
-        return $this->render('review/new.html.twig', array(
-            'review' => $review,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'review/new.html.twig',
+            array(
+                'review' => $review,
+                'form' => $form->createView(),
+            ));
     }
 
     /**
-     * Show review entities.
+     * Finds and displays a review entity.
      *
      * @Route("/{id}", name="review_show")
      * @Method("GET")
@@ -77,7 +86,7 @@ class ReviewController extends Controller
     public function showAction(Review $review)
     {
         $deleteForm = $this->createDeleteForm($review);
-        
+
         return $this->render('review/show.html.twig', array(
             'review' => $review,
             'delete_form' => $deleteForm->createView(),
@@ -85,10 +94,10 @@ class ReviewController extends Controller
     }
 
     /**
-     * Edit review entities.
+     * Displays a form to edit an existing review entity.
      *
      * @Route("/{id}/edit", name="review_edit")
-     * @Method({"GET", "post"})
+     * @Method({"GET", "POST"})
      * @return Response A Response instance
      */
     public function editAction(Request $request, Review $review)
@@ -115,6 +124,7 @@ class ReviewController extends Controller
      *
      * @Route("/{id}", name="review_delete")
      * @Method("DELETE")
+     * @return Response A Response instance
      */
     public function deleteAction(Request $request, Review $review)
     {
@@ -145,5 +155,4 @@ class ReviewController extends Controller
             ->getForm()
             ;
     }
-
 }

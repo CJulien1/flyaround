@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\PlaneModel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Planemodel controller.
@@ -131,6 +132,6 @@ class PlaneModelController extends Controller
             ->setAction($this->generateUrl('planemodel_delete', array('id' => $planeModel->getId())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
 }
